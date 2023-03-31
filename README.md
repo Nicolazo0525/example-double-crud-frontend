@@ -5,7 +5,7 @@
 npm install
 ```
 
-### Lint the files
+### Execute app
 ```bash
 npm run dev
 ```

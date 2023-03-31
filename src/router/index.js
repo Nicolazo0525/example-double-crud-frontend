@@ -10,7 +10,8 @@ import BookEdit from '../components/Books/Edit.vue'
 import Home from '../components/Home.vue'
 import Register from '../components/Authentication/Register.vue'
 import Login from '../components/Authentication/Login.vue'
-/* import movie from '../components/movie.vue' */
+import ForgotPassword from '../components/Authentication/ForgotPassword.vue'
+import ResetPassword from '../components/Authentication/ResetPassword.vue'
 
 const routes = [
     
@@ -29,11 +30,25 @@ const routes = [
         name: "login",
         component: Login
     },
+    ,
+    {
+        path: "/forgot-password/",
+        name: "ForgotPassword",
+        component: ForgotPassword,
+        props: true
+    },
+    {
+        path: "/password-reset/:token",
+        name: "ResetPassword",
+        component: ResetPassword,
+        props: true
+    },
     {
         path: "/categories/",
         name: "categories.index",
         component: CategoriesIndex
     },
+    
     {
         path: "/category-create/",
         name: "CategoryCreate",

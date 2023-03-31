@@ -34,25 +34,34 @@ export default {
 };
 </script>
 <template>
-    <div x-show="isLoginPage" class="space-y-4 w-[28em] mx-auto rounded-md shadow-md bg-white mt-12 p-6">
-        <header class="mb-3 text-2xl font-bold">Create your profile</header>
+    <div x-show="isLoginPage" class="space-y-4 w-[28em] mx-auto rounded-md shadow-md bg-white my-12 p-6">
+        <header class="mb-3 text-2xl font-bold text-center">Create your profile</header>
         <form action="" @submit.prevent="authStore.handleRegister(form)">
-            <div class="space-y-4 ">
+            <div class="space-y-4 text-center">
                 <div class="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                     <input type="text" placeholder="Name" v-model="form.name"
                         class="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
                 </div>
+                <template v-if="authStore.errors.name">
+                    <span class="text-red-600 m-2">{{ authStore.errors.name[0] }}</span>
+                </template>
                 <div class="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                     <input type="text" placeholder="Email" v-model="form.email"
                         class="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
                 </div>
+                <template v-if="authStore.errors.email">
+                    <span class="text-red-600 m-2">{{ authStore.errors.email[0] }}</span>
+                </template>
                 <div class="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                     <input type="password" placeholder="Password" v-model="form.password"
                         class="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
                 </div>
+                <template v-if="authStore.errors.password">
+                    <span class="text-red-600 m-2">{{ authStore.errors.password[0] }}</span>
+                </template>
                 <password-meter :password="form.password" />
                 <div class="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                    <input type="password" placeholder="Email" v-model="form.password_confirmation"
+                    <input type="password" placeholder="Password Confirmation" v-model="form.password_confirmation"
                         class="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
                 </div>
                 

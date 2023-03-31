@@ -3,7 +3,7 @@ import { onMounted,ref } from 'vue'
 import {useAuthStore} from '../../stores/Auth.js'
 
 const authStore = useAuthStore()
-
+/* console.log(authStore.errors.password[0]) */
 const form = ref({
     email: '',
     password: '',
@@ -15,16 +15,20 @@ const form = ref({
     <div class="space-y-4 w-[28em] mx-auto rounded-md shadow-md bg-white mt-12 p-6">
         <header class="mb-3 text-2xl font-bold text-center">Log in</header>
         <form action="" @submit.prevent="authStore.handleLogin(form)">
-            <div class="space-y-4">
+            <div class="space-y-4 text-center">
                 <div class="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                     <input type="text" placeholder="Email or username"  v-model="form.email"
                         class="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
-                </div>
+                </div>   
+                <template v-if="authStore.errors.email">
+                    <span class="text-red-600 m-2">{{ authStore.errors.email[0] }}</span>
+                </template>
                 <div
                     class="flex w-full items-center space-x-2 rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                     <input type="password" placeholder="Password" v-model="form.password"
                         class="my-3 w-full border-none bg-transparent outline-none" />
-                    <a href="#" class="font-medium text-gray-400 hover:text-gray-500">FORGOT?</a>
+                    <router-link :to="{name: 'ForgotPassword'}" class="font-medium text-gray-400 hover:text-gray-500">FORGOT</router-link>
+                    <!-- <a href="#" class="font-medium text-gray-400 hover:text-gray-500">FORGOT?</a> -->
                 </div>
                 <button
                     class="w-full rounded-2xl border-b-4 border-b-blue-600 bg-blue-500 py-3 font-bold text-white hover:bg-blue-400 active:translate-y-[0.125rem] active:border-b-blue-400">

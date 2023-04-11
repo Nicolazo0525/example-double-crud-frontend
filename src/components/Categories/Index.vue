@@ -3,10 +3,8 @@ import { onMounted } from 'vue';
 import useCategories from '../../composables/category';
 import localAxios from '../../localAxios';
 
-const {categories, getCategories} = useCategories();
-const deleteCategory = async(id) =>{
-    let response = await localAxios.delete('/api/categories/' + id)
-}
+const {categories, getCategories, deleteCategory} = useCategories();
+
 onMounted(() => {
     getCategories()
 })

@@ -43,6 +43,10 @@ export default function useCategories(){
         })
     }
 
+    const deleteCategory = async(id) =>{
+        let response = await localAxios.delete('/api/categories/' + id)
+    }
+
     return{
         categories,
         getCategories,
@@ -52,6 +56,7 @@ export default function useCategories(){
         image,
         status,
         storeCategory,
-        updateCategory
+        updateCategory,
+        deleteCategory
     }
 }

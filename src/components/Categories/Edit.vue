@@ -2,6 +2,7 @@
 import { onMounted, ref } from 'vue';
 import useCategories from '../../composables/category';
 import localAxios from '../../localAxios';
+import Alert from './Alert.vue';
 
 const props = defineProps({
     id: {
@@ -14,10 +15,12 @@ const { name,
         description,
         image,
         status, 
+        userId,
         getCategory, 
-        updateCategory 
+        updateCategory, 
+        errorsCategory, 
+        statusData
     } = useCategories();
-        
 const formData = new FormData();
 
 const newImage = ref('')
@@ -45,6 +48,7 @@ const editCategory = async () =>{
     formData.append('image',image.value);
     formData.append('newImage',newImage.value);
     formData.append('status',status.value);
+    formData.append('userId',userId.value);
     
     for (const [key, value] of formData) {
         formData[key] = value
@@ -65,10 +69,6 @@ const editCategory = async () =>{
                     <input type="text" placeholder="Name" v-model="name"  
                         class="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
                 </div>
-                <div
-                    class="flex w-full items-center space-x-2 rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
-                    <textarea class="my-3 w-full border-none bg-transparent outline-none" placeholder="Write your description..." v-model="description"></textarea>
-                </div>
                 <div class="w-full rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                     <input
                         type="file"
@@ -76,7 +76,10 @@ const editCategory = async () =>{
                         class="cursor-pointer block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100"
                     />
                 </div>
-                <img :src="`http://localhost:8000/storage/${image}`" class="w-10 h-10 rounded" alt="">
+                <div class="w-full rounded-2xl bg-gray-50 px-4 ring-2 hidden ring-gray-200 focus-within:ring-blue-400">
+                    <input type="text" v-model="userId"  
+                        class="my-3 w-full border-none bg-transparent outline-none focus:outline-none" />
+                </div>
                 <div
                     class="flex w-full items-center space-x-2 rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                     <select name="status" id="status" v-model="status" class="flex w-full py-2  bg-gray-50  focus-within:ring-blue-400">
@@ -85,11 +88,16 @@ const editCategory = async () =>{
                         <option value="1">Active</option>
                     </select>
                 </div>
-                
+                <img :src="`http://localhost:8000/storage/${image}`" class="w-10 h-10 rounded object-cover" alt="">
+                <div
+                    class="flex w-full items-center space-x-2 col-span-2 rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
+                    <textarea class="my-3 w-full border-none bg-transparent outline-none" placeholder="Write your description..." v-model="description"></textarea>
+                </div>
             </div>
             <div class="mt-2 flex justify-center">
                 <button class="w-20 text-center items-center rounded-2xl border-b-4 border-b-blue-600 bg-blue-500 py-3 font-bold text-white hover:bg-blue-400 active:translate-y-[0.125rem] active:border-b-blue-400">Create</button>
             </div>
+            <alert v-bind:errorsCategory="errorsCategory" v-bind:success="statusData"></alert>
         </form>
     </div>
 </template>

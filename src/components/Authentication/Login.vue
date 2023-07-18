@@ -23,7 +23,7 @@ const form = ref({
                 <template v-if="authStore.errors.email">
                     <span class="text-red-600 m-2">{{ authStore.errors.email[0] }}</span>
                 </template>
-                <div
+                <div 
                     class="flex w-full items-center space-x-2 rounded-2xl bg-gray-50 px-4 ring-2 ring-gray-200 focus-within:ring-blue-400">
                     <input type="password" placeholder="Password" v-model="form.password"
                         class="my-3 w-full border-none bg-transparent outline-none" />
